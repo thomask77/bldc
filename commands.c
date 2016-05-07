@@ -185,6 +185,12 @@ void commands_process_packet(unsigned char *data, unsigned int len) {
 		commands_send_packet(send_buffer, ind);
 		break;
 
+	case COMM_GET_FOC_PLOT_VALUES:
+		ind = 0;
+TK: Hack here!
+		commands_send_packet(send_buffer, ind);
+		break;
+
 	case COMM_SET_DUTY:
 		ind = 0;
 		mc_interface_set_duty((float)buffer_get_int32(data, &ind) / 100000.0);
