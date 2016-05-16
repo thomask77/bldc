@@ -40,29 +40,6 @@
 #include <stdlib.h>
 
 // Private types
-typedef struct {
-	float id_target;
-	float iq_target;
-	float max_duty;
-	float duty_now;
-	float phase;
-	float i_alpha;
-	float i_beta;
-	float i_abs;
-	float i_abs_filter;
-	float i_bus;
-	float v_bus;
-	float v_alpha;
-	float v_beta;
-	float mod_d;
-	float mod_q;
-	float id;
-	float iq;
-	float id_filter;
-	float iq_filter;
-	float vd;
-	float vq;
-} motor_state_t;
 
 typedef struct {
 	int sample_num;
@@ -76,7 +53,7 @@ typedef struct {
 static volatile mc_configuration *m_conf;
 static volatile mc_state m_state;
 static volatile mc_control_mode m_control_mode;
-static volatile motor_state_t m_motor_state;
+       volatile motor_state_t m_motor_state;
 static volatile int m_curr0_sum;
 static volatile int m_curr1_sum;
 static volatile int m_curr_samples;

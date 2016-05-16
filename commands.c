@@ -187,7 +187,12 @@ void commands_process_packet(unsigned char *data, unsigned int len) {
 
 	case COMM_GET_FOC_PLOT_VALUES:
 		ind = 0;
-TK: Hack here!
+		send_buffer[ind++] = COMM_GET_FOC_PLOT_VALUES;
+		buffer_append_float16(send_buffer, m_motor_state.id, 100, &ind);
+        buffer_append_float16(send_buffer, m_motor_state.iq, 100, &ind);
+        buffer_append_float16(send_buffer, m_motor_state.vd, 100, &ind);
+        buffer_append_float16(send_buffer, m_motor_state.vq, 100, &ind);
+        buffer_append_float16(send_buffer, m_motor_state.v_bus, 100, &ind);
 		commands_send_packet(send_buffer, ind);
 		break;
 

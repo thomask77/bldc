@@ -29,6 +29,32 @@
 #include "datatypes.h"
 #include <stdbool.h>
 
+typedef struct {
+        float id_target;
+        float iq_target;
+        float max_duty;
+        float duty_now;
+        float phase;
+        float i_alpha;
+        float i_beta;
+        float i_abs;
+        float i_abs_filter;
+        float i_bus;
+        float v_bus;
+        float v_alpha;
+        float v_beta;
+        float mod_d;
+        float mod_q;
+        float id;
+        float iq;
+        float id_filter;
+        float iq_filter;
+        float vd;
+        float vq;
+} motor_state_t;
+
+extern volatile motor_state_t m_motor_state;
+
 // Functions
 void mcpwm_foc_init(volatile mc_configuration *configuration);
 void mcpwm_foc_deinit(void);
