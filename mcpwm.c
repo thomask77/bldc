@@ -197,7 +197,7 @@ void mcpwm_init(volatile mc_configuration *configuration) {
 	last_pwm_cycles_sum = 0.0;
 	memset((float*)last_pwm_cycles_sums, 0, sizeof(last_pwm_cycles_sums));
 	dccal_done = false;
-	memset(hall_detect_table, 0, sizeof(hall_detect_table[0][0]) * 8 * 7);
+	memset((void*)hall_detect_table, 0, sizeof(hall_detect_table[0][0]) * 8 * 7);
 	update_sensor_mode();
 
 	mcpwm_init_hall_table((int8_t*)conf->hall_table);
@@ -2027,7 +2027,7 @@ bool mcpwm_is_dccal_done(void) {
  * Reset the hall sensor detection table
  */
 void mcpwm_reset_hall_detect_table(void) {
-	memset(hall_detect_table, 0, sizeof(hall_detect_table[0][0]) * 8 * 7);
+	memset((void*)hall_detect_table, 0, sizeof(hall_detect_table[0][0]) * 8 * 7);
 }
 
 /**

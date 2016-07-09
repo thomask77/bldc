@@ -21,7 +21,7 @@
  *  Created on: 10 okt 2015
  *      Author: benjamin
  */
-
+#define _GNU_SOURCE
 #include "mcpwm_foc.h"
 #include "mc_interface.h"
 #include "ch.h"
