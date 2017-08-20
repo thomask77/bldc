@@ -161,13 +161,13 @@ static const uint8_t vcom_string2[] = {
 /*
  * Serial Number string.
  */
-static const uint8_t vcom_string3[] = {
-		USB_DESC_BYTE(8),                     /* bLength.                         */
+static uint8_t vcom_string3[] = {
+		USB_DESC_BYTE(2 + 26*2),              /* bLength.                         */
 		USB_DESC_BYTE(USB_DESCRIPTOR_STRING), /* bDescriptorType.                 */
-		'0' + CH_KERNEL_MAJOR, 0,
-		'0' + CH_KERNEL_MINOR, 0,
-		'0' + CH_KERNEL_PATCH, 0
-};
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '-', 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '-', 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	};
 
 /*
  * Strings wrappers array.
@@ -303,7 +303,19 @@ const SerialUSBConfig serusbcfg = {
 		USBD2_INTERRUPT_REQUEST_EP
 };
 
+// Unique device ID register (96 bits)
+//
+#define STM32_U_ID    ((__IO uint32_t *)0x1FFF7A10)
+
 void comm_usb_serial_init(void) {
+	/*
+	 * Use the STM32 serial number so that every VESC gets an individual COM Port.
+	 */
+	for (int i=0; i<24; i++) {
+		static const char *hex = "0123456789ABCDEF";
+		vcom_string3[2 + (i + i/8)*2] = hex[ (STM32_U_ID[i/8] >> ((7 - i%8) * 4)) & 0x0F ];
+	}
+
 	sduObjectInit(&SDU1);
 	sduStart(&SDU1, &serusbcfg);
 
