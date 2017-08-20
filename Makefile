@@ -282,3 +282,5 @@ debug-start:
 
 RULESPATH = $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC
 include $(RULESPATH)/rules.mk
+
+.DEFAULT_GOAL = all
